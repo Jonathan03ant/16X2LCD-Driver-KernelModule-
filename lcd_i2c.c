@@ -30,6 +30,20 @@ static const struct file_operations lcd_fops = {
 	.write = lcd_write,
 };
 
+													/* Functions below are I2c Functions */
+
+/* 
+	* This function "Toggles the LCD before we start communicating
+	* Generates a pulse on the Enable line of the LCD to latch Data
+*/
+
+static void lcd_toggle(struct i2c_client* client, uint_8 byte)
+{
+	i2c_smbus_write_byte (client, byte | EN | LCD_BACKLIGHT);		/* i2c_smbus_xfer (client->adapter, ... byte(value) */
+	udelay(1);
+	i2c_smbus_write_byte(client, (data & ~EN) | LCD_BACKLIGHT);		/* EN flag is removed after data byte is sent */ 
+	udelay(50);
+}
 
 
 
