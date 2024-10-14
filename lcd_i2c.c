@@ -17,8 +17,18 @@ static struct class* lcd_classs;
 static struct i2c_client* lcd_client;
 static DEFINE_MUTEX(lcd_mutex);
 
+static int lcd_open(struct inode* inode, struct file* file);
+static int lcd_release(struct inode* inode, struct file* file);
+static ssize_t lcd_write(struct file* file, const char __user* buf, size_t count, loff_t* ppos);
 
 
+
+static const struct file_operations lcd_fops = {
+	.owner = THIS_MODULE,
+	.open = lcd_open,
+	.release = lcd_release,
+	.write = lcd_write,
+};
 
 
 
