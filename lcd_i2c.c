@@ -10,7 +10,12 @@
 #include <linux/mutex.h>
 #include <linux/delay.h>
 
-
+													/* Global Variable Definitions */
+static dev_t device_number;
+static struct cdev lcd_cdev;
+static struct class* lcd_classs;
+static struct i2c_client* lcd_client;
+static DEFINE_MUTEX(lcd_mutex);
 
 
 
